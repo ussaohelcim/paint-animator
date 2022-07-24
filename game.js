@@ -2,6 +2,9 @@ let canvas = document.querySelector("#ctx");
 let gfx = jwf(canvas);
 /**@type {HTMLButtonElement} */
 let renderBTN = document.querySelector("#render")
+let renderGifBTN = document.querySelector("#render2Gif")
+/**@type {HTMLInputElement} */
+let loopCheckBox = document.querySelector("#loopGif")
 let fpsInput = document.querySelector("#fps")
 fpsInput.value = 12
 
@@ -156,8 +159,12 @@ document.addEventListener('pointerdown',(me)=>{
 	}
 })
 
-renderBTN.addEventListener('click',(e)=>{
-	animator.render(fpsInput.value)
+// renderBTN.addEventListener('click',(e)=>{
+// 	animator.render(fpsInput.value)
+// })
+
+renderGifBTN.addEventListener('click',(e)=>{
+	animator.render2gif(fpsInput.value,loopCheckBox.checked ? 0 : -1 )
 })
 
 let animator = new AnimatorSDK(canvas)

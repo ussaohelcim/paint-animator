@@ -80,6 +80,7 @@ class AnimatorSDK {
 		cam.start()
 
 		this.onions = false
+
 		for (let i = 0; i < this.frames.length; i++) {
 			gfx.clearBackground()
 			gfx.drawRect(rect,white)
@@ -89,6 +90,49 @@ class AnimatorSDK {
 
 		cam.stop()
 
+	}
+	/**
+	 * 
+	 * @param {number} fps 
+	 * @param {number} loop -1 = no loop, 0 = loop
+	 */
+	async render2gif(fps, loop){
+		const gif = new GIF({
+			workers: 2,
+			quality: 10,
+			width : gfx._canvas.width,
+			height :gfx._canvas.height,
+			workerScript: './gif/gif.worker.js',
+			repeat: loop
+		});
+
+		this.onions = false
+
+		let white = {
+			r:255,g:255,b:255,a:255
+		}
+		let rect = {
+			x:0,y:0,w:gfx._canvas.width,h:gfx._canvas.height
+		}
+		
+		for (let i = 0; i < this.frames.length; i++) {
+			gfx.clearBackground()
+			gfx.drawRect(rect,white)
+			this._draw(i)
+			await delay(1000 / fps)
+
+			gif.addFrame(gfx.gfx, {
+				copy: true,
+				delay: 1000 / fps
+			});
+		}
+
+		gif.on('finished', function(blob) {
+			window.open(URL.createObjectURL(blob));
+		});
+		
+		gif.render();
+		
 	}
 	export(){
 		//TODO export as json

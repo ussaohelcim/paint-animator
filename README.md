@@ -1,6 +1,6 @@
 # paint-animator
 
-Animation tool to draw simple animations and render them to webm.  
+Animation tool to draw simple animations and render them to GIF.  
 
 You can use here: https://ussaohelcim.github.io/paint-animator/  
 

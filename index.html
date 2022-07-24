@@ -28,9 +28,21 @@
 	</div>
 
 	<canvas id="ctx" width="500" height="500"></canvas>
-	<input id="render" type="button" value="Render">
-	<label for="fps">FPS</label>
-	<input placeholder="FPS" type="number" name="fps" id="fps">
+	<p>
+		<label for="loopGif">Loop</label>
+		<input type="checkbox" name="loopGif" id="loopGif">
+	</p>
+	<input id="render2Gif" type="button" value="Render 2 Gif">
+	<!-- <p>
+		<input id="render" type="button" value="Render 2 webm">
+		<== This is broken
+	</p> -->
+	
+	<p>
+		<label for="fps">FPS</label>
+		<input placeholder="FPS" type="number" name="fps" id="fps">
+
+	</p>
 
 	<!-- <input id="render" type="button" value="Export"> -->
 	<!-- <label for="import">import</label>
@@ -42,6 +54,9 @@
 	<script src="./jwf/dist/jwml.js"></script>
 	<script src="./jwf/dist/jwCL.js"></script>
 	<script src="canvasToWebm.js"></script>
+	<script src="webm.js"></script>
+	<!-- <script src="gif.worker.js"></script> -->
+	<script src="./gif/gif.js"></script>
 	<script src="keybinds.js"></script>
 	<script src="animator.js"></script>
 	<script src="game.js"></script>
