@@ -128,7 +128,23 @@ class AnimatorSDK {
 		}
 
 		gif.on('finished', function(blob) {
-			window.open(URL.createObjectURL(blob));
+
+			const vid = document.createElement('image');
+			vid.src = URL.createObjectURL(blob);
+
+			document.body.appendChild(vid);
+			const a = document.createElement('a');
+			let time = new Date()
+			
+			a.download = `${time.getTime()}.gif`;
+			a.href = vid.src;
+			a.textContent = 'download the video';
+			document.body.appendChild(a);
+			a.click()
+			document.body.removeChild(vid)
+			document.body.removeChild(a)
+
+			// window.open(URL.createObjectURL(blob));
 		});
 		
 		gif.render();
