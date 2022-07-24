@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Paint animator</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<div>
+		<p>
+			<span class="help">Left/Right</span> move the frames <br>
+			<span class="help">left alt + Left</span> first frame <span class="help">left alt + Right</span> last frame<br>
+			<span class="help">"N" or Up</span> creates a new frame on the next index <br>
+			<span class="help">"left alt + N"</span> creates a new frame on the end of frame list
+			 <br>
+			<span class="help">"C" or Down</span> to clear the actual frame <br>
+			<span class="help">"O"</span> Enable / disable onions <br>
+		</p>
+	</div>
+	<div class="tools">
+		<p id="size">Brush size: 5</p>
+		<p id="index">index</p>
+		<p id="count">count</p>
+		<!-- <input type="color" name="color" id=""> -->
+	</div>
+
+	<canvas id="ctx" width="500" height="500"></canvas>
+	<input id="render" type="button" value="Render">
+	<label for="fps">FPS</label>
+	<input placeholder="FPS" type="number" name="fps" id="fps">
+
+	<!-- <input id="render" type="button" value="Export"> -->
+	<!-- <label for="import">import</label>
+	<input type="file" name="import" id=""> -->
+
+	<p>Made by <a href="https://github.com/ussaohelcim/paint-animator">ussaohelcim</a>.</p>
+
+	<script src="./jwf/dist/jwf.js"></script>
+	<script src="./jwf/dist/jwml.js"></script>
+	<script src="./jwf/dist/jwCL.js"></script>
+	<script src="canvasToWebm.js"></script>
+	<script src="keybinds.js"></script>
+	<script src="animator.js"></script>
+	<script src="game.js"></script>
+</body>
+</html>
