@@ -2,26 +2,19 @@
 class AnimatorSDK {
 	onions = true
 	constructor(canvas) {
+		/** @type {{x:number,y:number,r:number}[][]} */
 		this.frames = [];
 		this.rect = {
 			x: 0, y: 0, w: canvas.width, h: canvas.height
 		};
 	}
 	newFrame(index) {
-
 		let frame = [];
-		for (let y = 0; y < this.rect.h; y++) {
-			frame[y] = [];
-			for (let x = 0; x < this.rect.w; x++) {
-				let p = { painted: false, r:1 };
-				frame[y][x] = p;
-			}
-		}
+
 		this.frames.splice(
 			index ?? this.frames.length
 			, 0, frame
-		)
-		;
+		)	
 	}
 
 	drawFrame(index, color) {
@@ -41,23 +34,14 @@ class AnimatorSDK {
 	 * @param {{x:number,y:number,r:number}} point
 	 */
 	paint(index, point) {
-		//frames[index][y][x]
-
-		if (this.frames[index][point.y][point.x]) {
-			this.frames[index][point.y][point.x].painted = true
-			this.frames[index][point.y][point.x].r = point.r
+		
+		if(this.frames[index]){
+			this.frames[index].push({x:point.x ,y:point.y,r: point.r})
 		}
 
 	}
 	clearFrame(index) {
 		let frame = [];
-		for (let y = 0; y < this.rect.h; y++) {
-			frame[y] = [];
-			for (let x = 0; x < this.rect.w; x++) {
-				let p = { painted: false,r:0 };
-				frame[y][x] = p;
-			}
-		}
 		this.frames[index] = frame
 	}
 	drawOnion(index, amount) {
@@ -73,28 +57,19 @@ class AnimatorSDK {
 	}
 
 	_draw(index, color) {
-		if (this.frames[index]) {
-
-			for (let y = 0; y < this.frames[index].length; y++) {
-				let yPoints = this.frames[index][y]
-
-				for (let x = 0; x < yPoints.length; x++) {
-					const pixel = yPoints[x];
-					if (pixel.painted) {
-						gfx.drawCircle({
-							x: x,
-							y: y,
-							r: pixel.r
-						}, color)
-					}
-				}
-			}
+		if(this.frames[index]){
+			this.frames[index].forEach((p)=>{
+				gfx.drawCircle({
+					x: p.x,
+					y: p.y,
+					r: p.r
+				}, color)
+			})
 		}
 	}
 	async render(fps) {
 
 		let cam = new CanvasToWebm(gfx._canvas)
-
 		let white = {
 			r:255,g:255,b:255,a:255
 		}
@@ -115,10 +90,23 @@ class AnimatorSDK {
 		cam.stop()
 
 	}
-	export(){}
-	import(){}
+	export(){
+		//TODO export as json
+	}
+	import(){
+		//TODO import json
+	}
 }
 
 function delay(time) {
 	return new Promise(resolve => setTimeout(resolve, time));
 } 
+
+function hexToRGB(hexcolor){
+	return {
+		r: parseInt(`${hexcolor[1]}${hexcolor[2]}`,16),
+		g: parseInt(`${hexcolor[3]}${hexcolor[4]}`,16),
+		b: parseInt(`${hexcolor[5]}${hexcolor[6]}`,16),
+		a: 255,
+	}
+}

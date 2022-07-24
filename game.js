@@ -123,7 +123,7 @@ document.addEventListener('pointermove',(me)=>{
 	cursor.x = me.x - rect.x
 	cursor.y = me.y - rect.y
 
-	cursor.r = jwML.lerp(cursor.size /2,cursor.size *2, me.pressure)// (me.pressure * 5)
+	cursor.r = jwML.lerp(cursor.size /2,cursor.size *2, me.pressure)
 })
 
 document.addEventListener('wheel',(we)=>{
@@ -137,6 +137,11 @@ document.addEventListener('pointercancel',(me)=>{
 	me.preventDefault()
 	cursor.down = false
 })
+
+window.addEventListener('contextmenu', (event) => {
+  event.preventDefault()
+})
+
 document.addEventListener('pointerup',(me)=>{
 	me.preventDefault()
 
@@ -148,7 +153,6 @@ document.addEventListener('pointerdown',(me)=>{
 	if(isInsideDrawingCanvas(me)){
 		me.preventDefault()
 		cursor.down = true	
-		// console.log(me.pressure)
 	}
 })
 
@@ -168,6 +172,8 @@ let frameIndex = {
 }
 
 let gray = {r:100,g:100,b:100,a:100}
+let black = {r:0,g:0,b:0,a:255}
+let white = {r:255,g:255,b:255,a:255}
 
 let cursor = {
 	x: 0,
