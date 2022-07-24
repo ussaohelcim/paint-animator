@@ -123,13 +123,14 @@ document.addEventListener('pointermove',(me)=>{
 	cursor.x = me.x - rect.x
 	cursor.y = me.y - rect.y
 
+	cursor.r = jwML.lerp(cursor.size /2,cursor.size *2, me.pressure)// (me.pressure * 5)
 })
 
 document.addEventListener('wheel',(we)=>{
-	cursor.r -= we.deltaY * 0.01
+	cursor.size -= we.deltaY * 0.01
 	
-	if(cursor.r < 1 ) cursor.r = 1
-	cursor.txt.textContent = `Brush size: ${cursor.r}`
+	if(cursor.size < 1 ) cursor.size = 1
+	cursor.txt.textContent = `Brush size: ${cursor.size}`
 })
 
 document.addEventListener('pointercancel',(me)=>{
@@ -147,6 +148,7 @@ document.addEventListener('pointerdown',(me)=>{
 	if(isInsideDrawingCanvas(me)){
 		me.preventDefault()
 		cursor.down = true	
+		// console.log(me.pressure)
 	}
 })
 
@@ -172,6 +174,7 @@ let cursor = {
 	y: 0,
 	r: 5,
 	down: false,
+	size: 5,
 	txt: document.querySelector("#size")
 }
 
