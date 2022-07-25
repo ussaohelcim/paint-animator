@@ -2,7 +2,16 @@
 class AnimatorSDK {
 	onions = true
 	constructor(canvas) {
-		/** @type {{x:number,y:number,r:number}[][]} */
+		
+
+		
+		//frames[frame][layer][point]
+		/** @type {{x:number,y:number,r:number}[][][]} */
+		/**
+		 * frames[frame][layer][point]
+		 * frames[frame][point]
+		 * @type {{x:number,y:number,r:number}[][]}
+		 */
 		this.frames = [];
 		this.rect = {
 			x: 0, y: 0, w: canvas.width, h: canvas.height
@@ -10,6 +19,10 @@ class AnimatorSDK {
 	}
 	newFrame(index) {
 		let frame = [];
+
+		// for (let index = 0; index < 10; index++) {
+		// 	frame.push([])
+		// }
 
 		this.frames.splice(
 			index ?? this.frames.length
@@ -33,16 +46,22 @@ class AnimatorSDK {
 	 * @param {number} index 
 	 * @param {{x:number,y:number,r:number}} point
 	 */
-	paint(index, point) {
+	paint(index, point, layer) {
 		
 		if(this.frames[index]){
 			this.frames[index].push({x:point.x ,y:point.y,r: point.r})
-		}
+			// this.frames[index][layer].push({x:point.x ,y:point.y,r: point.r})
 
+		}
 	}
 	clearFrame(index) {
 		let frame = [];
 		this.frames[index] = frame
+	}
+	cloneFrame(index){
+		if(this.frames[index]){
+			return Array.from(this.frames[index]) 
+		}
 	}
 	drawOnion(index, amount) {
 		let red = {
@@ -66,6 +85,18 @@ class AnimatorSDK {
 				}, color)
 			})
 		}
+
+		// if(this.frames[index]){
+		// 	this.frames[index].forEach((layer)=>{
+		// 		layer.forEach((p)=>{
+		// 			gfx.drawCircle({
+		// 				x: p.x,
+		// 				y: p.y,
+		// 				r: p.r
+		// 			}, color)
+		// 		})
+		// 	})
+		// }
 	}
 	async render(fps) {
 
@@ -89,6 +120,23 @@ class AnimatorSDK {
 		}
 
 		cam.stop()
+
+	}
+	async playAnimation(fps){
+
+		let white = {
+			r:255,g:255,b:255,a:255
+		}
+		let rect = {
+			x:0,y:0,w:gfx._canvas.width,h:gfx._canvas.height
+		}
+
+		for (let i = 0; i < this.frames.length; i++) {
+			gfx.clearBackground()
+			gfx.drawRect(rect,white)
+			this._draw(i)
+			await delay(1000 / fps)
+		}
 
 	}
 	/**
@@ -158,9 +206,14 @@ class AnimatorSDK {
 	}
 	export(){
 		//TODO export as json
+		let blob = new Blob([JSON.stringify(this.frames)],{type: "application/json"})
+		let url = URL.createObjectURL(blob)
+		window.open(url)
 	}
-	import(){
+	import(json){
 		//TODO import json
+		this.frames = json
+		this.drawFrame(0)
 	}
 }
 

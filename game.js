@@ -6,6 +6,11 @@ let renderBTN = document.querySelector("#render")
 let renderGifBTN = document.querySelector("#render2Gif")
 /**@type {HTMLInputElement} */
 let loopCheckBox = document.querySelector("#loopGif")
+
+// let importFileINPUT = document.querySelector("#import")
+// /**@type {HTMLButtonElement} */
+// let exportBTN = document.querySelector("#export")
+
 let fpsInput = document.querySelector("#fps")
 fpsInput.value = 12
 
@@ -45,6 +50,13 @@ function refreshHud(){
 	frameCount.value = animator.frames.length
 	frameCount.e.textContent = `Frames: ${frameCount.value}`
 	frameIndex.e.textContent = `index: ${frameIndex.value}`
+}
+
+function handleCloneFrame(){
+	animator.newFrame(frameIndex.value + 1)
+	animator.frames[frameIndex.value + 1] = animator.cloneFrame(frameIndex.value)
+	handleNextFrame()
+	refreshHud()
 }
 
 function createFrameOnNextIndex(){
@@ -100,6 +112,22 @@ document.addEventListener('keydown',(ke)=>{
 		animator.drawFrame(frameIndex.value)
 
 		prevent = true
+	}
+	else if(keybinds.cloneFrame.includes(ke.key)){
+		handleCloneFrame()
+		prevent = true
+	}
+	else if(keybinds.playAnimation.includes(ke.key)){
+		animator.playAnimation(fpsInput.value)
+	}
+	else if(keybinds.decreaseBrushSize.includes(ke.key)){
+		cursor.size--
+		if(cursor.size < 1 ) cursor.size = 1
+		cursor.txt.textContent = `Brush size: ${cursor.size}`
+	}
+	else if(keybinds.increaseBrushSize.includes(ke.key)){
+		cursor.size++
+		cursor.txt.textContent = `Brush size: ${cursor.size}`
 	}
 
 	if(prevent)
@@ -179,6 +207,10 @@ let frameIndex = {
 	value: 0,
 	e : document.querySelector("#count")
 }
+
+// exportBTN.addEventListener('click',(e)=>{
+// 	animator.export()
+// })
 
 let gray = {r:100,g:100,b:100,a:100}
 let black = {r:0,g:0,b:0,a:255}
