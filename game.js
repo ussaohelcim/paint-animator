@@ -1,3 +1,4 @@
+/**@type {HTMLCanvasElement} */
 let canvas = document.querySelector("#ctx");
 let gfx = jwf(canvas);
 /**@type {HTMLButtonElement} */
@@ -112,6 +113,10 @@ function paint(){
 	animator.paint(frameIndex.value, cursor)	
 }
 
+function erase(){
+	animator.erase(frameIndex.value, cursor)
+}
+
 document.addEventListener('wheel',(we)=>{
 	cursor.size -= we.deltaY * 0.01
 	
@@ -122,13 +127,14 @@ document.addEventListener('wheel',(we)=>{
 document.addEventListener('pointercancel',(me)=>{
 	me.preventDefault()
 	cursor.down = false
+	cursor.eraser = false
 })
 
 document.addEventListener('pointerup',(me)=>{
 	me.preventDefault()
 
 	animator.drawFrame(frameIndex.value)
-
+	cursor.eraser = false
 	cursor.down = false
 })
 
@@ -146,6 +152,12 @@ canvas.addEventListener('pointermove',(me)=>{
 
 canvas.addEventListener('pointerdown',(me)=>{
 	me.preventDefault()
+	
+	if(me.button === 2){
+		// animator.erase(frameIndex.value,cursor)
+		// return
+		cursor.eraser = true
+	}
 	cursor.down = true	
 })
 
@@ -177,6 +189,7 @@ let cursor = {
 	y: 0,
 	r: 5,
 	down: false,
+	eraser: false,
 	size: 5,
 	txt: document.querySelector("#size")
 }
@@ -185,10 +198,14 @@ createFrameOnLastIndex()
 
 setInterval(() => {
 	
-	if(cursor.down)
+	if(cursor.down && !cursor.eraser)
 	{
 		paint()
 		gfx.drawCircle(cursor)
+	}
+	else if(cursor.down && cursor.eraser){
+		erase()
+		gfx.drawCircle(cursor,white)
 	}
 
 }, 1);

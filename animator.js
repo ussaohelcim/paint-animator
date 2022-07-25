@@ -150,6 +150,12 @@ class AnimatorSDK {
 		gif.render();
 		
 	}
+	erase(frameIndex,point){
+		
+		this.frames[frameIndex] = this.frames[frameIndex].filter((p)=>{
+			return !jwCL.checkCollisionCircles(point,p)
+		})
+	}
 	export(){
 		//TODO export as json
 	}
