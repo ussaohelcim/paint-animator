@@ -18,14 +18,6 @@ function handlePreviousFrame(){
 	}
 }
 
-let canvasRect = canvas.getBoundingClientRect()
-canvasRect.w = canvasRect.width
-canvasRect.h = canvasRect.height
-
-function isInsideDrawingCanvas(point){
-	return jwCL.checkCollisionPointRec(point,canvasRect)
-}
-
 function handleNextFrame(){
 	if(!animator.frames[frameIndex.value + 1]){
 		return
@@ -116,18 +108,9 @@ document.addEventListener('keydown',(ke)=>{
 
 })
 
-
 function paint(){
 	animator.paint(frameIndex.value, cursor)	
 }
-
-document.addEventListener('pointermove',(me)=>{
-	let rect = canvas.getBoundingClientRect()
-	cursor.x = me.x - rect.x
-	cursor.y = me.y - rect.y
-
-	cursor.r = jwML.lerp(cursor.size /2,cursor.size *2, me.pressure)
-})
 
 document.addEventListener('wheel',(we)=>{
 	cursor.size -= we.deltaY * 0.01
@@ -141,10 +124,6 @@ document.addEventListener('pointercancel',(me)=>{
 	cursor.down = false
 })
 
-window.addEventListener('contextmenu', (event) => {
-  event.preventDefault()
-})
-
 document.addEventListener('pointerup',(me)=>{
 	me.preventDefault()
 
@@ -152,11 +131,22 @@ document.addEventListener('pointerup',(me)=>{
 
 	cursor.down = false
 })
-document.addEventListener('pointerdown',(me)=>{
-	if(isInsideDrawingCanvas(me)){
-		me.preventDefault()
-		cursor.down = true	
-	}
+
+canvas.addEventListener('contextmenu', (event) => {
+  event.preventDefault()
+})
+
+canvas.addEventListener('pointermove',(me)=>{
+	let rect = canvas.getBoundingClientRect()
+	cursor.x = me.x - rect.x
+	cursor.y = me.y - rect.y
+
+	cursor.r = jwML.lerp(cursor.size /2,cursor.size *2, me.pressure)
+})
+
+canvas.addEventListener('pointerdown',(me)=>{
+	me.preventDefault()
+	cursor.down = true	
 })
 
 // renderBTN.addEventListener('click',(e)=>{
