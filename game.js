@@ -129,7 +129,9 @@ document.addEventListener('keydown',(ke)=>{
 		cursor.size++
 		cursor.txt.textContent = `Brush size: ${cursor.size}`
 	}
-
+	else if(keybinds.exportAnimation.includes(ke.key)){
+		animator.export()
+	}
 	if(prevent)
 	{
 		ke.preventDefault()
@@ -192,6 +194,21 @@ canvas.addEventListener('pointerdown',(me)=>{
 // renderBTN.addEventListener('click',(e)=>{
 // 	animator.render(fpsInput.value)
 // })
+
+function onDragImport(e){
+	e.preventDefault()
+}
+
+/**@param {DragEvent} e */
+async function onDropImport(e){
+	e.preventDefault()
+	let a = e.dataTransfer.items[0].getAsFile()
+	let s = await a.text()
+	
+	if(confirm("Are you sure you want to delete this animation and import your file?")){
+		animator.import(JSON.parse(s))
+	}
+}
 
 renderGifBTN.addEventListener('click',(e)=>{
 	animator.render2gif(fpsInput.value,loopCheckBox.checked ? 0 : -1 )

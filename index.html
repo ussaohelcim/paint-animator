@@ -22,6 +22,8 @@
 			<span class="help">Space</span> Play animation <br>
 			<span class="help">Left mouse button</span> Pencil 
 			<span class="help">Right mouse button</span> Eraser <br>
+			<span class="help">Enter</span> Export animation to json <br>
+			<span class="help">Drop</span> an animation json to import <br>
 		</p>
 	</div>
 	<div class="tools">
@@ -31,7 +33,7 @@
 		<!-- <input type="color" name="color" id="color"> -->
 	</div>
 
-	<canvas id="ctx" width="500" height="500"></canvas>
+	<canvas ondragover="onDragImport(event)" ondrop="onDropImport(event)" id="ctx" width="500" height="500"></canvas>
 	<p>
 		<label for="loopGif">Loop</label>
 		<input type="checkbox" name="loopGif" id="loopGif">
@@ -48,12 +50,8 @@
 	</p>
 
 	<!-- <p>
-		Export
-		<input id="export" type="button" value="Export">
-	</p>
-	<p>
 		Import
-		<input type="file" accept="application/json" name="import" id="import">
+		<input placeholder="Animation.json" type="file" accept="application/json" name="import" id="import">
 	</p> -->
 
 	<p>Made by <a target="_blank" href="https://github.com/ussaohelcim/paint-animator">ussaohelcim</a>.</p>

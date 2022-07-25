@@ -208,7 +208,14 @@ class AnimatorSDK {
 		//TODO export as json
 		let blob = new Blob([JSON.stringify(this.frames)],{type: "application/json"})
 		let url = URL.createObjectURL(blob)
-		window.open(url)
+		// window.open(url)
+		let time = new Date()
+		let a = document.createElement('a')
+		a.href = url
+		a.download = `${time.getTime()}.json`
+		document.body.appendChild(a);
+		a.click()
+		document.body.removeChild(a)
 	}
 	import(json){
 		//TODO import json
