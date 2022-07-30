@@ -3,8 +3,6 @@ class AnimatorSDK {
 	onions = true
 	constructor(canvas) {
 		
-
-		
 		//frames[frame][layer][point]
 		/** @type {{x:number,y:number,r:number}[][][]} */
 		/**
@@ -51,8 +49,10 @@ class AnimatorSDK {
 		if(this.frames[index]){
 			this.frames[index].push({x:point.x ,y:point.y,r: point.r})
 			// this.frames[index][layer].push({x:point.x ,y:point.y,r: point.r})
-
 		}
+	}
+	deleteFrame(index) {
+		this.frames.splice(index,1)
 	}
 	clearFrame(index) {
 		let frame = [];

@@ -8,53 +8,63 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div>
-		<p>
-			<span class="help">Left/Right or "A"/"D"</span> move the frames <br>
-			<span class="help">left alt + Left</span> first frame <span class="help">left alt + Right</span> last frame<br>
-			<span class="help">"N" or Up or "W"</span> creates a new frame on the next index <br>
-			<span class="help">"left alt + N"</span> creates a new frame on the end of frame list
-			 <br>
-			<span class="help">"C" or Down or "S"</span> to clear the actual frame <br>
-			<span class="help">"O"</span> Enable / disable onions <br>
-			<span class="help">"G"</span> Clone this frame <br>
-			<span class="help">-/+ or "Q"/"E" or mouse wheel</span> Change brush size <br>
-			<span class="help">Space</span> Play animation <br>
-			<span class="help">Left mouse button</span> Pencil 
-			<span class="help">Right mouse button</span> Eraser <br>
-			<span class="help">Enter</span> Export animation to json <br>
-			<span class="help">Drop</span> an animation json to import <br>
-		</p>
-	</div>
-	<div class="tools">
-		<p id="size">Brush size: 5</p>
-		<p id="index">index</p>
-		<p id="count">count</p>
-		<!-- <input type="color" name="color" id="color"> -->
-	</div>
-
-	<canvas ondragover="onDragImport(event)" ondrop="onDropImport(event)" id="ctx" width="500" height="500"></canvas>
-	<p>
-		<label for="loopGif">Loop</label>
-		<input type="checkbox" name="loopGif" id="loopGif">
-	</p>
-	<input id="render2Gif" type="button" value="Render 2 Gif">
-	<!-- <p>
-		<input id="render" type="button" value="Render 2 webm">
-		<== This is broken
-	</p> -->
+	<main>
+		<div>
+			<p>
+				<span class="help">Left/Right or "A"/"D"</span> move the frames <br>
+				<span class="help">left alt + Left</span> first frame <span class="help">left alt + Right</span> last frame<br>
+				<span class="help">"N" or Up or "W"</span> creates a new frame on the next index <br>
+				<span class="help">"left alt + N"</span> creates a new frame on the end of frame list
+				 <br>
+				<span class="help">"C" or Down or "S"</span> to clear the actual frame <br>
+				<span class="help">"O"</span> Enable / disable onions <br>
+				<span class="help">"G"</span> Clone this frame <br>
+				<span class="help">-/+ or "Q"/"E" or mouse wheel</span> Change brush size <br>
+				<span class="help">Space</span> Play animation <br>
+				<span class="help">Left mouse button</span> Pencil 
+				<span class="help">Right mouse button</span> Eraser <br>
+				<span class="help">Delete</span> Delete this frame <br>
+				<span class="help">Enter</span> Export animation to json <br>
+				<span class="help">Drop</span> an animation json to import <br>
+			</p>
+		</div>
+		
 	
-	<p>
-		<label for="fps">FPS</label>
-		<input placeholder="FPS" type="number" name="fps" id="fps">
-	</p>
+		<div>
+			<div class="tools">
+				<p id="size">Brush size: 5</p>
+				<p id="index">index</p>
+				<p id="count">count</p>
+				<!-- <input type="color" name="color" id="color"> -->
+			</div>
+			<canvas ondragover="onDragImport(event)" ondrop="onDropImport(event)" id="ctx" width="500" height="500"></canvas>
+			<p>
+				<label for="loopGif">Loop</label>
+				<input type="checkbox" name="loopGif" id="loopGif">
+			</p>
+			<input id="render2Gif" type="button" value="Render 2 Gif">
+			<!-- <p>
+				<input id="render" type="button" value="Render 2 webm">
+				<== This is broken
+			</p> -->
+			
+			<p>
+				<label for="fps">FPS</label>
+				<input placeholder="FPS" type="number" name="fps" id="fps">
+			</p>
+			<!-- <p>
+			Import
+			<input placeholder="Animation.json" type="file" accept="application/json" name="import" id="import">
+		</p> -->
+	
+	</div>
+	</main>
+	
 
-	<!-- <p>
-		Import
-		<input placeholder="Animation.json" type="file" accept="application/json" name="import" id="import">
-	</p> -->
+<p>Made by <a target="_blank" href="https://github.com/ussaohelcim/paint-animator">ussaohelcim</a>.</p>
+	
 
-	<p>Made by <a target="_blank" href="https://github.com/ussaohelcim/paint-animator">ussaohelcim</a>.</p>
+	
 
 	<script src="./jwf/dist/jwf.js"></script>
 	<script src="./jwf/dist/jwml.js"></script>

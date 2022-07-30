@@ -9,11 +9,21 @@ html,body{
 	margin: 0;
 	touch-action: none;
 }
-
 body {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
+	justify-content: space-around;
+}
+main {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	justify-content: center;
+}
+
+main div{
+	padding: 10pt;
 }
 canvas{
 	border-style: dotted;

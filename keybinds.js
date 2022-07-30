@@ -8,5 +8,6 @@ let keybinds = {
 	playAnimation: [' '],
 	increaseBrushSize : ['+','e'],
 	decreaseBrushSize : ['-','q'],
-	exportAnimation : ['Enter']
+	exportAnimation: ['Enter'],
+	deleteFrame : ['Delete']
 }

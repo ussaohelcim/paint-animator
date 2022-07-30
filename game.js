@@ -132,6 +132,21 @@ document.addEventListener('keydown',(ke)=>{
 	else if(keybinds.exportAnimation.includes(ke.key)){
 		animator.export()
 	}
+	else if (keybinds.deleteFrame.includes(ke.key)) {
+		animator.deleteFrame(frameIndex.value)
+		refreshHud()
+
+		if (frameCount.value < 1) {
+			animator.newFrame()
+		}
+		else if (frameIndex.value === frameCount.value)
+		{
+			frameIndex.value--
+		}
+		refreshHud()
+		animator.drawFrame(frameIndex.value)
+	}
+
 	if(prevent)
 	{
 		ke.preventDefault()
