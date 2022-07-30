@@ -122,7 +122,7 @@ class AnimatorSDK {
 		cam.stop()
 
 	}
-	async playAnimation(fps){
+	async playAnimation(fps,loop){
 
 		let white = {
 			r:255,g:255,b:255,a:255
@@ -136,6 +136,10 @@ class AnimatorSDK {
 			gfx.drawRect(rect,white)
 			this._draw(i)
 			await delay(1000 / fps)
+		}
+
+		if (loop) {
+			this.playAnimation(fps,loop)
 		}
 
 	}

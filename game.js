@@ -74,6 +74,7 @@ function createFrameOnLastIndex(){
 document.addEventListener('keydown',(ke)=>{
 
 	let prevent = false
+	prevent = ke.altKey
 
 	if(keybinds.previousFrame.includes(ke.key)){
 		if(ke.altKey){
@@ -198,9 +199,7 @@ canvas.addEventListener('pointermove',(me)=>{
 canvas.addEventListener('pointerdown',(me)=>{
 	me.preventDefault()
 	
-	if(me.button === 2){
-		// animator.erase(frameIndex.value,cursor)
-		// return
+	if(me.button === 2 || me.altKey){
 		cursor.eraser = true
 	}
 	cursor.down = true	
